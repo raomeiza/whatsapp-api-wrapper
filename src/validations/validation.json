@@ -1,0 +1,4390 @@
+{
+    "SuperHash": "9f15d4a1f64e55cb68fd68d6b3f7cabd369669407ae577fedad95202fd5004f4",
+    "Schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "definitions": {
+            "ConstructorOptions": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "WABA_ID": {
+                        "type": "string"
+                    },
+                    "PHONE_NUMBER_ID": {
+                        "type": "string"
+                    },
+                    "apiVersion": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "PHONE_NUMBER_ID",
+                    "WABA_ID",
+                    "token"
+                ]
+            },
+            "GraphClientDataParams": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/UploadFileParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendReadParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendTextParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendImageParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendAudioParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendVideoParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendVoiceParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendDocumentParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendStickerParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendLocationParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendContactParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendTemplateParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendListParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendButtonsParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendProductParams"
+                            },
+                            {
+                                "$ref": "#/definitions/SendProductListParams"
+                            }
+                        ]
+                    }
+                }
+            },
+            "GraphClient": {
+                "type": "object"
+            },
+            "UploadFileParams": {
+                "type": "object",
+                "properties": {
+                    "to": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "file"
+                        ]
+                    },
+                    "file": {
+                        "description": "Valid types for path values in \"fs\".",
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/URL"
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "patternProperties": {
+                                    "^[0-9]+$": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "file",
+                    "to",
+                    "type"
+                ]
+            },
+            "MediaParams": {
+                "type": "object",
+                "properties": {
+                    "caption": {
+                        "type": "string"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "properties": {},
+                        "additionalProperties": true
+                    },
+                    "mime_type": {
+                        "type": "string"
+                    },
+                    "sha256": {
+                        "type": "string"
+                    },
+                    "link": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "description": "Valid types for path values in \"fs\".",
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/URL"
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "patternProperties": {
+                                    "^[0-9]+$": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "size": {
+                        "type": "number"
+                    }
+                }
+            },
+            "SendDataParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "enum": [
+                            "audio",
+                            "buttons",
+                            "contact",
+                            "document",
+                            "file",
+                            "image",
+                            "list",
+                            "location",
+                            "product",
+                            "productList",
+                            "read",
+                            "sticker",
+                            "template",
+                            "text",
+                            "video",
+                            "voice"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendReadParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "read"
+                        ]
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendTextParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "text"
+                        ]
+                    },
+                    "text": {
+                        "type": "object",
+                        "properties": {
+                            "body": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "body"
+                        ]
+                    },
+                    "file": {
+                        "description": "Valid types for path values in \"fs\".",
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/URL"
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "patternProperties": {
+                                    "^[0-9]+$": {
+                                        "type": "number"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "string"
+                            }
+                        ]
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "text",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendImageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "image"
+                        ]
+                    },
+                    "image": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "image/jpeg",
+                            "image/png"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "image",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendAudioParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "audio"
+                        ]
+                    },
+                    "audio": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "audio/aac",
+                            "audio/amr",
+                            "audio/mp4",
+                            "audio/mpeg",
+                            "audio/ogg",
+                            "audio/opus"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "audio",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendVideoParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "video"
+                        ]
+                    },
+                    "video": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "video/3gpp",
+                            "video/mp4"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "to",
+                    "type",
+                    "video"
+                ]
+            },
+            "SendVoiceParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "voice"
+                        ]
+                    },
+                    "voice": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "audio/amr",
+                            "audio/mp4",
+                            "audio/mpeg",
+                            "audio/ogg; codecs=opus",
+                            "audio/ogg; codecs=vorbis",
+                            "audio/wav"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "to",
+                    "type",
+                    "voice"
+                ]
+            },
+            "SendDocumentParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "document"
+                        ]
+                    },
+                    "document": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "application/msword",
+                            "application/pdf",
+                            "application/vnd.ms-excel",
+                            "application/vnd.ms-powerpoint",
+                            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                            "text/plain"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "document",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendStickerParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "sticker"
+                        ]
+                    },
+                    "sticker": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "mime_type": {
+                        "enum": [
+                            "image/webp"
+                        ],
+                        "type": "string"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "sticker",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendLocationParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "location"
+                        ]
+                    },
+                    "location": {
+                        "$ref": "#/definitions/LocationParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "location",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendContactParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "contact"
+                        ]
+                    },
+                    "contact": {
+                        "$ref": "#/definitions/ContactParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "contact",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendTemplateParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "template"
+                        ]
+                    },
+                    "template": {
+                        "$ref": "#/definitions/Template"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "recipient_type",
+                    "template",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendListParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "list"
+                        ]
+                    },
+                    "list": {
+                        "$ref": "#/definitions/ListMessageParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "list",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendButtonsParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "buttons"
+                        ]
+                    },
+                    "buttons": {
+                        "$ref": "#/definitions/ButtonParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "buttons",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendProductParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "product"
+                        ]
+                    },
+                    "product": {
+                        "$ref": "#/definitions/SingleProductMessageParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "product",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendProductListParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "productList"
+                        ]
+                    },
+                    "productList": {
+                        "$ref": "#/definitions/MultipleProductMessageParams"
+                    },
+                    "recipient_type": {
+                        "type": "string",
+                        "enum": [
+                            "individual"
+                        ]
+                    },
+                    "to": {
+                        "type": "string"
+                    },
+                    "messageOptions": {
+                        "$ref": "#/definitions/MessageOptions"
+                    }
+                },
+                "required": [
+                    "productList",
+                    "recipient_type",
+                    "to",
+                    "type"
+                ]
+            },
+            "SendBulkParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "enum": [
+                            "audio",
+                            "buttons",
+                            "contact",
+                            "document",
+                            "file",
+                            "image",
+                            "list",
+                            "location",
+                            "product",
+                            "productList",
+                            "read",
+                            "sticker",
+                            "template",
+                            "text",
+                            "video",
+                            "voice"
+                        ],
+                        "type": "string"
+                    },
+                    "recipients": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "image": {
+                        "$ref": "#/definitions/SendImageParams"
+                    },
+                    "text": {
+                        "$ref": "#/definitions/SendTextParams"
+                    },
+                    "video": {
+                        "$ref": "#/definitions/SendVideoParams"
+                    },
+                    "audio": {
+                        "$ref": "#/definitions/SendAudioParams"
+                    },
+                    "location": {
+                        "$ref": "#/definitions/SendLocationParams"
+                    },
+                    "contact": {
+                        "$ref": "#/definitions/SendContactParams"
+                    },
+                    "sticker": {
+                        "$ref": "#/definitions/SendStickerParams"
+                    },
+                    "template": {
+                        "$ref": "#/definitions/SendTemplateParams"
+                    },
+                    "product": {
+                        "$ref": "#/definitions/SendProductParams"
+                    },
+                    "productList": {
+                        "$ref": "#/definitions/SendProductListParams"
+                    },
+                    "file": {
+                        "$ref": "#/definitions/UploadFileParams"
+                    },
+                    "read": {
+                        "$ref": "#/definitions/SendReadParams"
+                    }
+                },
+                "required": [
+                    "recipients",
+                    "type"
+                ]
+            },
+            "DownloadFile": {
+                "type": "object"
+            },
+            "Addresses": {
+                "type": "object",
+                "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                },
+                "required": [
+                    "addresses"
+                ]
+            },
+            "Name": {
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "formatted_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "middle_name": {
+                        "type": "string"
+                    },
+                    "prefix": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Org": {
+                "type": "object",
+                "properties": {
+                    "company": {
+                        "type": "string"
+                    },
+                    "department": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Phone": {
+                "type": "object",
+                "properties": {
+                    "phone": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "wa_id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Email": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email"
+                ]
+            },
+            "ContactParams": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "$ref": "#/definitions/Name"
+                    },
+                    "addresses": {
+                        "$ref": "#/definitions/Addresses"
+                    },
+                    "birthday": {
+                        "type": "string"
+                    },
+                    "emails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Email"
+                        }
+                    },
+                    "ims": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "service": {
+                                    "type": "string"
+                                },
+                                "user_id": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "service",
+                                "user_id"
+                            ]
+                        }
+                    },
+                    "org": {
+                        "$ref": "#/definitions/Org"
+                    },
+                    "phones": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Phone"
+                        }
+                    },
+                    "urls": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Url"
+                        }
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "LocationParams": {
+                "type": "object",
+                "properties": {
+                    "latitude": {
+                        "type": "number"
+                    },
+                    "longitude": {
+                        "type": "number"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "latitude",
+                    "longitude"
+                ]
+            },
+            "HeaderParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "header"
+                        ]
+                    },
+                    "parameters": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "text"
+                                                ]
+                                            },
+                                            "text": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "text",
+                                            "type"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "image"
+                                                ]
+                                            },
+                                            "image": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            }
+                                        },
+                                        "required": [
+                                            "image",
+                                            "type"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "video"
+                                                ]
+                                            },
+                                            "video": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            }
+                                        },
+                                        "required": [
+                                            "type",
+                                            "video"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "document"
+                                                ]
+                                            },
+                                            "document": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            }
+                                        },
+                                        "required": [
+                                            "document",
+                                            "type"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "parameters",
+                    "type"
+                ]
+            },
+            "BodyParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "body"
+                        ]
+                    },
+                    "parameters": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "anyOf": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "text"
+                                                ]
+                                            },
+                                            "text": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "text",
+                                            "type"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "date_time"
+                                                ]
+                                            },
+                                            "date_time": {
+                                                "$ref": "#/definitions/DateTimeParams"
+                                            }
+                                        },
+                                        "required": [
+                                            "date_time",
+                                            "type"
+                                        ]
+                                    },
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "currency"
+                                                ]
+                                            },
+                                            "currency": {
+                                                "$ref": "#/definitions/CurrencyParams"
+                                            }
+                                        },
+                                        "required": [
+                                            "currency",
+                                            "type"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "parameters",
+                    "type"
+                ]
+            },
+            "ActionsParams": {
+                "type": "object",
+                "properties": {
+                    "button": {
+                        "type": "string"
+                    },
+                    "buttons": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "location",
+                                            "phone_number",
+                                            "reply",
+                                            "url"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "reply": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "title"
+                                        ]
+                                    },
+                                    "url": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "url": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "title",
+                                            "url"
+                                        ]
+                                    },
+                                    "phone_number": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "phone_number": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "phone_number",
+                                            "title"
+                                        ]
+                                    },
+                                    "location": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "title": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "title"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "buttons"
+                ]
+            },
+            "OutBoundResultParams": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "status": {
+                                "type": "number"
+                            },
+                            "message": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "status"
+                        ]
+                    },
+                    "messages": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "number"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "code",
+                                    "message"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "errors",
+                    "messages",
+                    "meta"
+                ]
+            },
+            "CurrencyParams": {
+                "type": "object",
+                "properties": {
+                    "fallback_value": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "amount_1000": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "amount_1000",
+                    "code",
+                    "fallback_value"
+                ]
+            },
+            "DateTimeParams": {
+                "type": "object",
+                "properties": {
+                    "fallback_value": {
+                        "type": "string"
+                    },
+                    "day_of_month": {
+                        "type": "number"
+                    },
+                    "day_of_week": {
+                        "type": "number"
+                    },
+                    "hour": {
+                        "type": "number"
+                    },
+                    "minute": {
+                        "type": "number"
+                    },
+                    "month": {
+                        "type": "number"
+                    },
+                    "year": {
+                        "type": "number"
+                    },
+                    "timestamp": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "day_of_month",
+                    "day_of_week",
+                    "fallback_value",
+                    "hour",
+                    "minute",
+                    "month",
+                    "timestamp",
+                    "year"
+                ]
+            },
+            "ButtonParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "button"
+                        ]
+                    },
+                    "sub_type": {
+                        "enum": [
+                            "location",
+                            "phone_number",
+                            "quick_reply",
+                            "url"
+                        ],
+                        "type": "string"
+                    },
+                    "index": {
+                        "type": "number"
+                    },
+                    "parameters": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "payload",
+                                            "text"
+                                        ],
+                                        "type": "string"
+                                    },
+                                    "text": {
+                                        "type": "string"
+                                    },
+                                    "payload": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "text",
+                                    "type"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "index",
+                    "parameters",
+                    "sub_type",
+                    "type"
+                ]
+            },
+            "Template": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "language": {
+                        "type": "object",
+                        "properties": {
+                            "policy": {
+                                "enum": [
+                                    "deterministic",
+                                    "fallback"
+                                ],
+                                "type": "string"
+                            },
+                            "code": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "code",
+                            "policy"
+                        ]
+                    },
+                    "namespace": {
+                        "type": "string"
+                    },
+                    "components": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "$ref": "#/definitions/HeaderParams"
+                            },
+                            {
+                                "$ref": "#/definitions/BodyParams"
+                            },
+                            {
+                                "$ref": "#/definitions/ButtonParams"
+                            }
+                        ],
+                        "minItems": 3,
+                        "maxItems": 3
+                    }
+                },
+                "required": [
+                    "components",
+                    "language",
+                    "name",
+                    "namespace"
+                ]
+            },
+            "interactiveMessageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "enum": [
+                            "button",
+                            "list",
+                            "product",
+                            "product_list"
+                        ],
+                        "type": "string"
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ActionsParams"
+                        }
+                    },
+                    "sections": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveListSection"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveProductListSection"
+                                }
+                            }
+                        ]
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "actions",
+                    "type"
+                ]
+            },
+            "ListMessageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "list"
+                        ]
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ActionsParams"
+                        }
+                    },
+                    "sections": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveListSection"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveProductListSection"
+                                }
+                            }
+                        ]
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "actions",
+                    "type"
+                ]
+            },
+            "ButtonMessageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "button"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "button": {
+                                        "type": "string"
+                                    },
+                                    "buttons": {
+                                        "type": "array",
+                                        "items": [
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "enum": [
+                                                            "location",
+                                                            "phone_number",
+                                                            "reply",
+                                                            "url"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "reply": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "title"
+                                                        ]
+                                                    },
+                                                    "url": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            },
+                                                            "url": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "title",
+                                                            "url"
+                                                        ]
+                                                    },
+                                                    "phone_number": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            },
+                                                            "phone_number": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "phone_number",
+                                                            "title"
+                                                        ]
+                                                    },
+                                                    "location": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "id",
+                                                            "title"
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "type"
+                                                ]
+                                            }
+                                        ],
+                                        "minItems": 1,
+                                        "maxItems": 1
+                                    }
+                                },
+                                "required": [
+                                    "button",
+                                    "buttons"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "sections": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveListSection"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveProductListSection"
+                                }
+                            }
+                        ]
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "actions",
+                    "type"
+                ]
+            },
+            "SingleProductMessageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "product"
+                        ]
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ActionsParams"
+                        }
+                    },
+                    "sections": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveListSection"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveProductListSection"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "actions",
+                    "catalog_id",
+                    "product_retailer_id",
+                    "type"
+                ]
+            },
+            "MultipleProductMessageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "product_list"
+                        ]
+                    },
+                    "sections": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/InteractiveProductListSection"
+                        }
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ActionsParams"
+                        }
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "actions",
+                    "product_retailer_id",
+                    "sections",
+                    "type"
+                ]
+            },
+            "InteractiveListSection": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "rows": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/InteractiveListRow"
+                        }
+                    }
+                },
+                "required": [
+                    "rows",
+                    "title"
+                ]
+            },
+            "InteractiveListRow": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    },
+                    "ID": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "ID",
+                    "title"
+                ]
+            },
+            "InteractiveProductListSection": {
+                "type": "object",
+                "properties": {
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "product_retailer_id"
+                ]
+            },
+            "MarkAsRead": {
+                "type": "object"
+            },
+            "SendText": {
+                "description": "Send a text message to a chat",
+                "type": "object"
+            },
+            "SendImage": {
+                "type": "object"
+            },
+            "SendVideo": {
+                "type": "object"
+            },
+            "SendAudio": {
+                "type": "object"
+            },
+            "SendVoice": {
+                "type": "object"
+            },
+            "SendDocument": {
+                "type": "object"
+            },
+            "SendButtons": {
+                "type": "object"
+            },
+            "SendList": {
+                "type": "object"
+            },
+            "SendCarousel": {
+                "type": "object"
+            },
+            "SendOrder": {
+                "type": "object"
+            },
+            "SendLocation": {
+                "type": "object"
+            },
+            "SendContact": {
+                "type": "object"
+            },
+            "SendSticker": {
+                "type": "object"
+            },
+            "SendRead": {
+                "type": "object"
+            },
+            "SendPaused": {
+                "type": "object"
+            },
+            "SendResumed": {
+                "type": "object"
+            },
+            "SendSingleProduct": {
+                "type": "object"
+            },
+            "SendProductList": {
+                "type": "object"
+            },
+            "SendBulk": {
+                "type": "object"
+            },
+            "OrderReplyParams": {
+                "type": "object",
+                "properties": {
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "text": {
+                        "type": "string"
+                    },
+                    "product_items": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "product_retailer_id": {
+                                        "type": "string"
+                                    },
+                                    "quantity": {
+                                        "type": "number"
+                                    },
+                                    "item_price": {
+                                        "type": "number"
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "currency",
+                                    "item_price",
+                                    "product_retailer_id",
+                                    "quantity"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "catalog_id",
+                    "product_items",
+                    "text"
+                ]
+            },
+            "ButtonReplyParams": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "title"
+                ]
+            },
+            "ListReplyParams": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "enum": [
+                            "button",
+                            "list",
+                            "product",
+                            "product_list"
+                        ],
+                        "type": "string"
+                    },
+                    "header": {
+                        "$ref": "#/definitions/HeaderParams"
+                    },
+                    "body": {
+                        "$ref": "#/definitions/BodyParams"
+                    },
+                    "footer": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ]
+                    },
+                    "actions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/ActionsParams"
+                        }
+                    },
+                    "sections": {
+                        "anyOf": [
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveListSection"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/InteractiveProductListSection"
+                                }
+                            }
+                        ]
+                    },
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "actions",
+                    "description",
+                    "type"
+                ]
+            },
+            "BasicStatusesParams": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "recipient_id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "enum": [
+                            "deleted",
+                            "delivered",
+                            "failed",
+                            "read",
+                            "sent",
+                            "warning"
+                        ],
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "number"
+                    },
+                    "type": {
+                        "enum": [
+                            "ephemeral",
+                            "message"
+                        ],
+                        "type": "string"
+                    },
+                    "conversation": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "origin": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "business_initiated",
+                                            "customer_initiated",
+                                            "referral_conversation"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            },
+                            "expiration_timestamp": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "expiration_timestamp",
+                            "id",
+                            "origin"
+                        ]
+                    }
+                },
+                "required": [
+                    "conversation",
+                    "id",
+                    "recipient_id",
+                    "status",
+                    "timestamp",
+                    "type"
+                ]
+            },
+            "StatusesParams": {
+                "type": "object",
+                "properties": {
+                    "pricing": {
+                        "type": "object",
+                        "properties": {
+                            "pricing_model": {
+                                "type": "string",
+                                "enum": [
+                                    "CBP"
+                                ]
+                            },
+                            "category": {
+                                "enum": [
+                                    "business_initiated",
+                                    "customer_initiated",
+                                    "referral_conversation"
+                                ],
+                                "type": "string"
+                            },
+                            "billable": {
+                                "type": "boolean"
+                            }
+                        },
+                        "required": [
+                            "billable",
+                            "category",
+                            "pricing_model"
+                        ]
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "recipient_id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "enum": [
+                            "deleted",
+                            "delivered",
+                            "failed",
+                            "read",
+                            "sent",
+                            "warning"
+                        ],
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "number"
+                    },
+                    "type": {
+                        "enum": [
+                            "ephemeral",
+                            "message"
+                        ],
+                        "type": "string"
+                    },
+                    "conversation": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "origin": {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "enum": [
+                                            "business_initiated",
+                                            "customer_initiated",
+                                            "referral_conversation"
+                                        ],
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "type"
+                                ]
+                            },
+                            "expiration_timestamp": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "expiration_timestamp",
+                            "id",
+                            "origin"
+                        ]
+                    }
+                },
+                "required": [
+                    "conversation",
+                    "id",
+                    "pricing",
+                    "recipient_id",
+                    "status",
+                    "timestamp",
+                    "type"
+                ]
+            },
+            "InboundParams": {
+                "type": "object",
+                "properties": {
+                    "messaging_product": {
+                        "type": "string",
+                        "enum": [
+                            "whatsapp"
+                        ]
+                    },
+                    "metadata": {
+                        "type": "object",
+                        "properties": {
+                            "display_phone_number": {
+                                "type": "string"
+                            },
+                            "phone_number_id": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "display_phone_number",
+                            "phone_number_id"
+                        ]
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "detail": {
+                                        "type": "string"
+                                    },
+                                    "href": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "code",
+                                    "detail",
+                                    "href",
+                                    "title"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    },
+                    "messages": {
+                        "type": "object",
+                        "properties": {
+                            "contacts": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "wa_id": {
+                                                "type": "string"
+                                            },
+                                            "profile": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name"
+                                                ]
+                                            }
+                                        },
+                                        "required": [
+                                            "profile",
+                                            "wa_id"
+                                        ]
+                                    }
+                                ],
+                                "minItems": 1,
+                                "maxItems": 1
+                            },
+                            "messages": {
+                                "type": "array",
+                                "items": [
+                                    {
+                                        "type": "object",
+                                        "properties": {
+                                            "audio": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "button": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "payload": {
+                                                        "type": "string"
+                                                    },
+                                                    "text": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "payload",
+                                                    "text"
+                                                ]
+                                            },
+                                            "context": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "forwarded": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "frequently_forwarded": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "from": {
+                                                        "type": "string"
+                                                    },
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "referred_product": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "catalog_id": {
+                                                                "type": "string"
+                                                            },
+                                                            "product_retailer_id": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "catalog_id",
+                                                            "product_retailer_id"
+                                                        ]
+                                                    }
+                                                },
+                                                "required": [
+                                                    "forwarded",
+                                                    "frequently_forwarded",
+                                                    "from",
+                                                    "id",
+                                                    "referred_product"
+                                                ]
+                                            },
+                                            "video": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "voice": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "sticker": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "image": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "document": {
+                                                "$ref": "#/definitions/MediaParams"
+                                            },
+                                            "from": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "identity": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "acknowledged": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "created_timestamp": {
+                                                        "type": "number"
+                                                    },
+                                                    "hash": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "acknowledged",
+                                                    "created_timestamp",
+                                                    "hash"
+                                                ]
+                                            },
+                                            "interactive": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "enum": [
+                                                            "button_reply",
+                                                            "list_reply"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "button_reply": {
+                                                        "$ref": "#/definitions/ListReplyParams"
+                                                    },
+                                                    "list_reply": {
+                                                        "$ref": "#/definitions/ButtonReplyParams"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "type"
+                                                ]
+                                            },
+                                            "order": {
+                                                "$ref": "#/definitions/OrderReplyParams"
+                                            },
+                                            "referral": {
+                                                "$ref": "#/definitions/RefferalParams"
+                                            },
+                                            "system": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "type": {
+                                                        "enum": [
+                                                            "customer_changed_number",
+                                                            "customer_identity_changed"
+                                                        ],
+                                                        "type": "string"
+                                                    },
+                                                    "new_wa_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "wa_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "customer": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "customer",
+                                                    "new_wa_id",
+                                                    "type",
+                                                    "wa_id"
+                                                ]
+                                            },
+                                            "text": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "body": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "body"
+                                                ]
+                                            },
+                                            "timestamp": {
+                                                "type": "number"
+                                            },
+                                            "type": {
+                                                "enum": [
+                                                    "audio",
+                                                    "button",
+                                                    "contacts",
+                                                    "document",
+                                                    "ephemeral",
+                                                    "image",
+                                                    "interactive",
+                                                    "location",
+                                                    "order",
+                                                    "referral",
+                                                    "sticker",
+                                                    "system",
+                                                    "text",
+                                                    "unknown",
+                                                    "video",
+                                                    "voice"
+                                                ],
+                                                "type": "string"
+                                            },
+                                            "location": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "latitude": {
+                                                        "type": "number"
+                                                    },
+                                                    "longitude": {
+                                                        "type": "number"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "address": {
+                                                        "type": "string"
+                                                    },
+                                                    "url": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "address",
+                                                    "latitude",
+                                                    "longitude",
+                                                    "name",
+                                                    "url"
+                                                ]
+                                            },
+                                            "contacts": {
+                                                "type": "array",
+                                                "items": {
+                                                    "$ref": "#/definitions/ContactParams"
+                                                }
+                                            },
+                                            "referred_product": {
+                                                "$ref": "#/definitions/RefferedProductParams"
+                                            },
+                                            "wa_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "audio",
+                                            "button",
+                                            "contacts",
+                                            "context",
+                                            "document",
+                                            "from",
+                                            "id",
+                                            "identity",
+                                            "image",
+                                            "interactive",
+                                            "location",
+                                            "order",
+                                            "referral",
+                                            "referred_product",
+                                            "sticker",
+                                            "system",
+                                            "text",
+                                            "timestamp",
+                                            "type",
+                                            "video",
+                                            "voice",
+                                            "wa_id"
+                                        ]
+                                    }
+                                ],
+                                "minItems": 1,
+                                "maxItems": 1
+                            },
+                            "recipint_id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "contacts",
+                            "messages",
+                            "recipint_id"
+                        ]
+                    },
+                    "statuses": {
+                        "$ref": "#/definitions/StatusesParams"
+                    }
+                },
+                "required": [
+                    "errors",
+                    "messages",
+                    "messaging_product",
+                    "metadata",
+                    "statuses"
+                ]
+            },
+            "RefferalParams": {
+                "type": "object",
+                "properties": {
+                    "source_url": {
+                        "type": "string"
+                    },
+                    "source_type": {
+                        "enum": [
+                            "ad",
+                            "post"
+                        ],
+                        "type": "string"
+                    },
+                    "source_id": {
+                        "type": "string"
+                    },
+                    "headline": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    },
+                    "media_type": {
+                        "enum": [
+                            "image",
+                            "video"
+                        ],
+                        "type": "string"
+                    },
+                    "thumbnail_url": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "$ref": "#/definitions/MediaParams"
+                    },
+                    "video": {
+                        "$ref": "#/definitions/MediaParams"
+                    }
+                },
+                "required": [
+                    "body",
+                    "headline",
+                    "image",
+                    "media_type",
+                    "source_id",
+                    "source_type",
+                    "source_url",
+                    "thumbnail_url",
+                    "video"
+                ]
+            },
+            "RefferedProductParams": {
+                "type": "object",
+                "properties": {
+                    "catalog_id": {
+                        "type": "string"
+                    },
+                    "product_retailer_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "catalog_id",
+                    "product_retailer_id"
+                ]
+            },
+            "BusinessProfile": {
+                "type": "object",
+                "properties": {
+                    "about": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "messaging_product": {
+                        "enum": [
+                            "whatsapp"
+                        ],
+                        "type": "string"
+                    },
+                    "profile_picture_url": {
+                        "type": "string"
+                    },
+                    "vertical": {
+                        "enum": [
+                            "APPAREL",
+                            "AUTO",
+                            "BEAUTY",
+                            "EDU",
+                            "ENTERTAINMENT",
+                            "EVENT_PLAN",
+                            "FINANCE",
+                            "GOVT",
+                            "GROCERY",
+                            "HEALTH",
+                            "HOTEL",
+                            "NONPROFIT",
+                            "NOT_A_BIZ",
+                            "OTHER",
+                            "PROF_SERVICES",
+                            "RESTAURANT",
+                            "RETAIL",
+                            "TRAVEL",
+                            "UNDEFINED"
+                        ],
+                        "type": "string"
+                    },
+                    "website": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "GetProfile": {
+                "type": "object"
+            },
+            "UpdateProfile": {
+                "type": "object"
+            },
+            "RequestPhoneVerification": {
+                "type": "object"
+            },
+            "VerifyPhone": {
+                "type": "object"
+            },
+            "GetPhoneNumbers": {
+                "type": "object"
+            },
+            "GetPhoneNumbersByFilter": {
+                "type": "object"
+            },
+            "GetDisplayStatus": {
+                "type": "object"
+            },
+            "AddPhoneNumber": {
+                "type": "object"
+            },
+            "getPhoneCertificate": {
+                "type": "object"
+            },
+            "getPhoneOtpStatus": {
+                "type": "object"
+            },
+            "uploadMedia": {
+                "type": "object"
+            },
+            "GetMediaUrl": {
+                "type": "object"
+            },
+            "DeleteMedia": {
+                "type": "object"
+            },
+            "DownloadMedia": {
+                "type": "object"
+            },
+            "IncomingBasicParams": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from"
+                ]
+            },
+            "IncomingTextParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "text"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "timestamp": {
+                                "type": "number"
+                            },
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "text",
+                            "timestamp"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingImageParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "image"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingAudioParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "audio"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingVideoParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "video"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingDocumentParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "document"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingButtonsParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "buttons_reply"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/ButtonReplyParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingListParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "list_reply"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/ListReplyParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingOrderParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "order_reply"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/OrderReplyParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingLocationParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "location"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/LocationParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingContactParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "contact"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/ContactParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingStickerParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "sticker"
+                        ]
+                    },
+                    "message": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingSingleProductParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "single_product"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/OrderReplyParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "IncomingMultipleProductsParams": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "multiple_products"
+                        ]
+                    },
+                    "message": {
+                        "$ref": "#/definitions/OrderReplyParams"
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "from": {
+                                "type": "string"
+                            },
+                            "referred_product": {
+                                "$ref": "#/definitions/RefferedProductParams"
+                            }
+                        },
+                        "required": [
+                            "from",
+                            "id"
+                        ]
+                    },
+                    "from": {
+                        "type": "object",
+                        "additionalProperties": {},
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "id",
+                            "name"
+                        ]
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "wa_id": {
+                                        "type": "string"
+                                    },
+                                    "profile": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "name"
+                                        ]
+                                    }
+                                },
+                                "required": [
+                                    "profile",
+                                    "wa_id"
+                                ]
+                            }
+                        ],
+                        "minItems": 1,
+                        "maxItems": 1
+                    }
+                },
+                "required": [
+                    "contacts",
+                    "context",
+                    "from",
+                    "message",
+                    "type"
+                ]
+            },
+            "MessageEvents": {
+                "type": "object"
+            },
+            "OutBound": {
+                "type": "object",
+                "properties": {
+                    "graphClient": {
+                        "type": "object"
+                    },
+                    "sendText": {
+                        "description": "Send a text message to a chat",
+                        "type": "object"
+                    },
+                    "sendImage": {
+                        "type": "object"
+                    },
+                    "sendAudio": {
+                        "type": "object"
+                    },
+                    "sendVideo": {
+                        "type": "object"
+                    },
+                    "sendDocument": {
+                        "type": "object"
+                    },
+                    "sendButtons": {
+                        "type": "object"
+                    },
+                    "sendList": {
+                        "type": "object"
+                    },
+                    "sendLocation": {
+                        "type": "object"
+                    },
+                    "sendContact": {
+                        "type": "object"
+                    },
+                    "sendSticker": {
+                        "type": "object"
+                    },
+                    "sendRead": {
+                        "type": "object"
+                    },
+                    "sendSingleProduct": {
+                        "type": "object"
+                    },
+                    "sendProductList": {
+                        "type": "object"
+                    },
+                    "sendBulk": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "graphClient",
+                    "sendAudio",
+                    "sendBulk",
+                    "sendButtons",
+                    "sendContact",
+                    "sendDocument",
+                    "sendImage",
+                    "sendList",
+                    "sendLocation",
+                    "sendProductList",
+                    "sendRead",
+                    "sendSingleProduct",
+                    "sendSticker",
+                    "sendText",
+                    "sendVideo"
+                ]
+            },
+            "Account": {
+                "type": "object",
+                "properties": {
+                    "getProfile": {
+                        "type": "object"
+                    },
+                    "updateProfile": {
+                        "type": "object"
+                    },
+                    "requestPhoneVerification": {
+                        "type": "object"
+                    },
+                    "verifyPhone": {
+                        "type": "object"
+                    },
+                    "getPhoneNumbers": {
+                        "type": "object"
+                    },
+                    "getPhoneNumbersByFilter": {
+                        "type": "object"
+                    },
+                    "getDisplayStatus": {
+                        "type": "object"
+                    },
+                    "addPhoneNumber": {
+                        "type": "object"
+                    },
+                    "getPhoneCertificate": {
+                        "type": "object"
+                    },
+                    "getPhoneOtpStatus": {
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "addPhoneNumber",
+                    "getDisplayStatus",
+                    "getPhoneCertificate",
+                    "getPhoneNumbers",
+                    "getPhoneNumbersByFilter",
+                    "getPhoneOtpStatus",
+                    "getProfile",
+                    "requestPhoneVerification",
+                    "updateProfile",
+                    "verifyPhone"
+                ]
+            },
+            "Media": {
+                "type": "object",
+                "properties": {
+                    "uploadMedia": {
+                        "type": "object"
+                    },
+                    "getMediaUrl": {
+                        "type": "object"
+                    },
+                    "deleteMedia": {
+                        "type": "object"
+                    },
+                    "downloadMedia": {
+                        "$ref": "#/definitions/DownloadMedia"
+                    }
+                },
+                "required": [
+                    "deleteMedia",
+                    "downloadMedia",
+                    "getMediaUrl",
+                    "uploadMedia"
+                ]
+            },
+            "WhatsappApiWrapper": {
+                "type": "object",
+                "properties": {
+                    "messageEvents": {
+                        "$ref": "#/definitions/MessageEvents"
+                    },
+                    "outBound": {
+                        "$ref": "#/definitions/OutBound"
+                    },
+                    "account": {
+                        "$ref": "#/definitions/Account"
+                    },
+                    "media": {
+                        "$ref": "#/definitions/Media"
+                    }
+                },
+                "required": [
+                    "account",
+                    "media",
+                    "messageEvents",
+                    "outBound"
+                ]
+            },
+            "URL": {
+                "description": "Browser-compatible `URL` class, implemented by following the WHATWG URL\nStandard. [Examples of parsed URLs](https://url.spec.whatwg.org/#example-url-parsing) may be found in the Standard itself.\nThe `URL` class is also available on the global object.\n\nIn accordance with browser conventions, all properties of `URL` objects\nare implemented as getters and setters on the class prototype, rather than as\ndata properties on the object itself. Thus, unlike `legacy urlObject` s,\nusing the `delete` keyword on any properties of `URL` objects (e.g. `delete myURL.protocol`, `delete myURL.pathname`, etc) has no effect but will still\nreturn `true`.",
+                "type": "object",
+                "properties": {
+                    "hash": {
+                        "description": "Gets and sets the fragment portion of the URL.\n\n```js\nconst myURL = new URL('https://example.org/foo#bar');\nconsole.log(myURL.hash);\n// Prints #bar\n\nmyURL.hash = 'baz';\nconsole.log(myURL.href);\n// Prints https://example.org/foo#baz\n```\n\nInvalid URL characters included in the value assigned to the `hash` property\nare `percent-encoded`. The selection of which characters to\npercent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.",
+                        "type": "string"
+                    },
+                    "host": {
+                        "description": "Gets and sets the host portion of the URL.\n\n```js\nconst myURL = new URL('https://example.org:81/foo');\nconsole.log(myURL.host);\n// Prints example.org:81\n\nmyURL.host = 'example.com:82';\nconsole.log(myURL.href);\n// Prints https://example.com:82/foo\n```\n\nInvalid host values assigned to the `host` property are ignored.",
+                        "type": "string"
+                    },
+                    "hostname": {
+                        "description": "Gets and sets the host name portion of the URL. The key difference between`url.host` and `url.hostname` is that `url.hostname` does _not_ include the\nport.\n\n```js\nconst myURL = new URL('https://example.org:81/foo');\nconsole.log(myURL.hostname);\n// Prints example.org\n\n// Setting the hostname does not change the port\nmyURL.hostname = 'example.com:82';\nconsole.log(myURL.href);\n// Prints https://example.com:81/foo\n\n// Use myURL.host to change the hostname and port\nmyURL.host = 'example.org:82';\nconsole.log(myURL.href);\n// Prints https://example.org:82/foo\n```\n\nInvalid host name values assigned to the `hostname` property are ignored.",
+                        "type": "string"
+                    },
+                    "href": {
+                        "description": "Gets and sets the serialized URL.\n\n```js\nconst myURL = new URL('https://example.org/foo');\nconsole.log(myURL.href);\n// Prints https://example.org/foo\n\nmyURL.href = 'https://example.com/bar';\nconsole.log(myURL.href);\n// Prints https://example.com/bar\n```\n\nGetting the value of the `href` property is equivalent to calling {@link toString}.\n\nSetting the value of this property to a new value is equivalent to creating a\nnew `URL` object using `new URL(value)`. Each of the `URL`object's properties will be modified.\n\nIf the value assigned to the `href` property is not a valid URL, a `TypeError`will be thrown.",
+                        "type": "string"
+                    },
+                    "origin": {
+                        "description": "Gets the read-only serialization of the URL's origin.\n\n```js\nconst myURL = new URL('https://example.org/foo/bar?baz');\nconsole.log(myURL.origin);\n// Prints https://example.org\n```\n\n```js\nconst idnURL = new URL('https://測試');\nconsole.log(idnURL.origin);\n// Prints https://xn--g6w251d\n\nconsole.log(idnURL.hostname);\n// Prints xn--g6w251d\n```",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "Gets and sets the password portion of the URL.\n\n```js\nconst myURL = new URL('https://abc:xyz@example.com');\nconsole.log(myURL.password);\n// Prints xyz\n\nmyURL.password = '123';\nconsole.log(myURL.href);\n// Prints https://abc:123@example.com\n```\n\nInvalid URL characters included in the value assigned to the `password` property\nare `percent-encoded`. The selection of which characters to\npercent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.",
+                        "type": "string"
+                    },
+                    "pathname": {
+                        "description": "Gets and sets the path portion of the URL.\n\n```js\nconst myURL = new URL('https://example.org/abc/xyz?123');\nconsole.log(myURL.pathname);\n// Prints /abc/xyz\n\nmyURL.pathname = '/abcdef';\nconsole.log(myURL.href);\n// Prints https://example.org/abcdef?123\n```\n\nInvalid URL characters included in the value assigned to the `pathname`property are `percent-encoded`. The selection of which characters\nto percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.",
+                        "type": "string"
+                    },
+                    "port": {
+                        "description": "Gets and sets the port portion of the URL.\n\nThe port value may be a number or a string containing a number in the range`0` to `65535` (inclusive). Setting the value to the default port of the`URL` objects given `protocol` will\nresult in the `port` value becoming\nthe empty string (`''`).\n\nThe port value can be an empty string in which case the port depends on\nthe protocol/scheme:\n\n<omitted>\n\nUpon assigning a value to the port, the value will first be converted to a\nstring using `.toString()`.\n\nIf that string is invalid but it begins with a number, the leading number is\nassigned to `port`.\nIf the number lies outside the range denoted above, it is ignored.\n\n```js\nconst myURL = new URL('https://example.org:8888');\nconsole.log(myURL.port);\n// Prints 8888\n\n// Default ports are automatically transformed to the empty string\n// (HTTPS protocol's default port is 443)\nmyURL.port = '443';\nconsole.log(myURL.port);\n// Prints the empty string\nconsole.log(myURL.href);\n// Prints https://example.org/\n\nmyURL.port = 1234;\nconsole.log(myURL.port);\n// Prints 1234\nconsole.log(myURL.href);\n// Prints https://example.org:1234/\n\n// Completely invalid port strings are ignored\nmyURL.port = 'abcd';\nconsole.log(myURL.port);\n// Prints 1234\n\n// Leading numbers are treated as a port number\nmyURL.port = '5678abcd';\nconsole.log(myURL.port);\n// Prints 5678\n\n// Non-integers are truncated\nmyURL.port = 1234.5678;\nconsole.log(myURL.port);\n// Prints 1234\n\n// Out-of-range numbers which are not represented in scientific notation\n// will be ignored.\nmyURL.port = 1e10; // 10000000000, will be range-checked as described below\nconsole.log(myURL.port);\n// Prints 1234\n```\n\nNumbers which contain a decimal point,\nsuch as floating-point numbers or numbers in scientific notation,\nare not an exception to this rule.\nLeading numbers up to the decimal point will be set as the URL's port,\nassuming they are valid:\n\n```js\nmyURL.port = 4.567e21;\nconsole.log(myURL.port);\n// Prints 4 (because it is the leading number in the string '4.567e21')\n```",
+                        "type": "string"
+                    },
+                    "protocol": {
+                        "description": "Gets and sets the protocol portion of the URL.\n\n```js\nconst myURL = new URL('https://example.org');\nconsole.log(myURL.protocol);\n// Prints https:\n\nmyURL.protocol = 'ftp';\nconsole.log(myURL.href);\n// Prints ftp://example.org/\n```\n\nInvalid URL protocol values assigned to the `protocol` property are ignored.",
+                        "type": "string"
+                    },
+                    "search": {
+                        "description": "Gets and sets the serialized query portion of the URL.\n\n```js\nconst myURL = new URL('https://example.org/abc?123');\nconsole.log(myURL.search);\n// Prints ?123\n\nmyURL.search = 'abc=xyz';\nconsole.log(myURL.href);\n// Prints https://example.org/abc?abc=xyz\n```\n\nAny invalid URL characters appearing in the value assigned the `search`property will be `percent-encoded`. The selection of which\ncharacters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.",
+                        "type": "string"
+                    },
+                    "searchParams": {
+                        "$ref": "#/definitions/URLSearchParams",
+                        "description": "Gets the `URLSearchParams` object representing the query parameters of the\nURL. This property is read-only but the `URLSearchParams` object it provides\ncan be used to mutate the URL instance; to replace the entirety of query\nparameters of the URL, use the {@link search} setter. See `URLSearchParams` documentation for details.\n\nUse care when using `.searchParams` to modify the `URL` because,\nper the WHATWG specification, the `URLSearchParams` object uses\ndifferent rules to determine which characters to percent-encode. For\ninstance, the `URL` object will not percent encode the ASCII tilde (`~`)\ncharacter, while `URLSearchParams` will always encode it:\n\n```js\nconst myUrl = new URL('https://example.org/abc?foo=~bar');\n\nconsole.log(myUrl.search);  // prints ?foo=~bar\n\n// Modify the URL via searchParams...\nmyUrl.searchParams.sort();\n\nconsole.log(myUrl.search);  // prints ?foo=%7Ebar\n```"
+                    },
+                    "username": {
+                        "description": "Gets and sets the username portion of the URL.\n\n```js\nconst myURL = new URL('https://abc:xyz@example.com');\nconsole.log(myURL.username);\n// Prints abc\n\nmyURL.username = '123';\nconsole.log(myURL.href);\n// Prints https://123:xyz@example.com/\n```\n\nAny invalid URL characters appearing in the value assigned the `username`property will be `percent-encoded`. The selection of which\ncharacters to percent-encode may vary somewhat from what the {@link parse} and {@link format} methods would produce.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "hash",
+                    "host",
+                    "hostname",
+                    "href",
+                    "origin",
+                    "password",
+                    "pathname",
+                    "port",
+                    "protocol",
+                    "search",
+                    "searchParams",
+                    "username"
+                ]
+            },
+            "URLSearchParams": {
+                "description": "The `URLSearchParams` API provides read and write access to the query of a`URL`. The `URLSearchParams` class can also be used standalone with one of the\nfour following constructors.\nThe `URLSearchParams` class is also available on the global object.\n\nThe WHATWG `URLSearchParams` interface and the `querystring` module have\nsimilar purpose, but the purpose of the `querystring` module is more\ngeneral, as it allows the customization of delimiter characters (`&#x26;` and `=`).\nOn the other hand, this API is designed purely for URL query strings.\n\n```js\nconst myURL = new URL('https://example.org/?abc=123');\nconsole.log(myURL.searchParams.get('abc'));\n// Prints 123\n\nmyURL.searchParams.append('abc', 'xyz');\nconsole.log(myURL.href);\n// Prints https://example.org/?abc=123&#x26;abc=xyz\n\nmyURL.searchParams.delete('abc');\nmyURL.searchParams.set('a', 'b');\nconsole.log(myURL.href);\n// Prints https://example.org/?a=b\n\nconst newSearchParams = new URLSearchParams(myURL.searchParams);\n// The above is equivalent to\n// const newSearchParams = new URLSearchParams(myURL.search);\n\nnewSearchParams.append('a', 'c');\nconsole.log(myURL.href);\n// Prints https://example.org/?a=b\nconsole.log(newSearchParams.toString());\n// Prints a=b&#x26;a=c\n\n// newSearchParams.toString() is implicitly called\nmyURL.search = newSearchParams;\nconsole.log(myURL.href);\n// Prints https://example.org/?a=b&#x26;a=c\nnewSearchParams.delete('a');\nconsole.log(myURL.href);\n// Prints https://example.org/?a=b&#x26;a=c\n```",
+                "type": "object"
+            },
+            "MessageOptions": {
+                "type": "object",
+                "properties": {
+                    "message_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "message_id"
+                ]
+            },
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "city": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "countryCode": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "street": {
+                        "type": "string"
+                    },
+                    "zip": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Url": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "url"
+                ]
+            }
+        }
+    }
+}
