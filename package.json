@@ -1,0 +1,50 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "got": "^12.5.1",
+    "tsoa": "^4.1.0"
+  },
+  "name": "whatsapp-api-wrapper",
+  "version": "0.0.1",
+  "description": "A comprehensive and simplistic wrapper for facebook's whatsapp cloud api",
+  "main": "index.js",
+  "devDependencies": {
+    "@types/node": "^18.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "eslint": "^8.24.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "runtime-typescript-checker": "^1.0.1",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "test": "test",
+    "lint": "eslint --ext .ts src/",
+    "lint:fix": "eslint --ext .ts src/ --fix",
+    "build-validation": "cd src/validations && node.exe -r ts-node/register ./index.ts --build",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/raomeiza/whatsapp-api-wrapper.git"
+  },
+  "keywords": [
+    "whatsapp",
+    "facebook",
+    "whatsapp-business",
+    "facebook-graph",
+    "graph-api",
+    "facebook-graph-api",
+    "whatsapp-api-wrapper",
+    "simple-whatsapp-wrapper",
+    "comprehensive-whatsapp-wrapper"
+  ],
+  "author": "R. A Omeiza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raomeiza/whatsapp-api-wrapper/issues"
+  },
+  "homepage": "https://github.com/raomeiza/whatsapp-api-wrapper#readme"
+}

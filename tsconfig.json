@@ -1,0 +1,13 @@
+{
+  "include": ["src/**/*", "typings/**/*", "test"],
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+    ],
+    "typeRoots": [
+      "node_modules/@types",
+      "typings/index.ts"
+    ],
+    "strict": true,
+  }
+}
