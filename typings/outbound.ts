@@ -1,35 +1,35 @@
 import {
-  ConstructorOptions,
-  SendImageParams,
-  SendTextParams,
-  SendVideoParams,
-  SendAudioParams,
-  SendLocationParams,
-  SendContactParams,
-  SendStickerParams,
-  SendTemplateParams,
-  SendProductParams,
-  SendProductListParams
+  ConstructorOptions as ConstructorOption,
+  SendImageParams as SendImageParam,
+  SendTextParams as SendTextParam,
+  SendVideoParams as SendVideoParam,
+  SendAudioParams as SendAudioParam,
+  SendLocationParams as SendLocationParam,
+  SendContactParams as SendContactParam,
+  SendStickerParams as SendStickerParam,
+  SendTemplateParams as SendTemplateParam,
+  SendProductParams as SendProductParam,
+  SendProductListParams as SendProductListParam
 } from './'
 
-export interface ConstrucorOption extends ConstructorOptions {}
+export interface ConstrucorOptions extends ConstructorOption {}
 
-export interface SendImageParam extends SendImageParams {}
+export interface SendImageParams extends SendImageParam {}
 
-export interface SendTextParam extends SendTextParams {}
+export interface SendTextParams extends SendTextParam {}
 
-export interface SendVideoParam extends SendVideoParams {}
+export interface SendVideoParams extends SendVideoParam {}
 
-export interface SendAudioParam extends SendAudioParams {}
+export interface SendAudioParams extends SendAudioParam {}
 
-export interface SendLocationParam extends SendLocationParams {}
+export interface SendLocationParams extends SendLocationParam {}
 
-export interface SendContactParam extends SendContactParams {}
+export interface SendContactParams extends SendContactParam {}
 
-export interface SendStickerParam extends SendStickerParams {}
+export interface SendStickerParams extends SendStickerParam {}
 
-export interface SendTemplateParam extends SendTemplateParams {}
+export interface SendTemplateParams extends SendTemplateParam {}
 
-export interface SendProductParam extends SendProductParams {}
+export interface SendProductParams extends SendProductParam {}
 
-export interface SendProductListParam extends SendProductListParams {}
+export interface SendProductListParams extends SendProductListParam {}

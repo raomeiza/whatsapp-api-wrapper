@@ -1,160 +1,139 @@
-import { request } from 'https'
-import { LoadSchemaFile } from 'runtime-typescript-checker'
-import * as validator from './../typings/validate-index'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { existsSync, createReadStream, createWriteStream, writeFile } from 'fs'
-import { ConstructorOptions, GraphClient, OutBound, SendAudio, SendBulk, SendButtons, SendContact, SendDocument, SendImage, SendList, SendLocation, SendProductList, SendRead, SendSingleProduct, SendSticker, SendText, SendVideo } from '../typings'
+/* eslint-disable @typescript-eslint/no-throw-literal */
+import * as outboundValidator from './../typings/validate-outbound'
+import { Media } from './media'
+import { /* GraphClient as GraphClientType, OutBound, */ SendAudio, SendBulk, SendButtons, SendContact, SendDocument, SendImage, SendList, SendLocation, SendProductList, SendRead, SendSingleProduct, SendSticker, /* SendTemplateParams, */ SendText, SendVideo, sendTemplate } from '../typings'
+import { ConstrucorOptions } from '../typings/outbound'
 
-class outBound implements OutBound {
-  token: string
-  WABA_ID: string
-  PHONE_NUMBER_ID: string
-  apiVersion: string | undefined
-  validationSchema: any
-  validator: typeof validator
-  constructor (options: ConstructorOptions) {
-    this.validator = validator
-    // eslint-disable-next-line n/no-path-concat
-    this.validationSchema = LoadSchemaFile(__dirname + '/validations/index.json')
-    if (this.validationSchema == null) {
-      throw new Error('Failed to load validation schema')
-    }
-    this.validator.Configure(this.validationSchema)
-    const validateConstructorOptions = validator.ValidateConstructorOptions(options)
-    if (!validateConstructorOptions.Success) {
-      throw new Error(JSON.stringify(validateConstructorOptions.Errors))
-    }
-    this.token = options.token
-    this.WABA_ID = options.WABA_ID
-    this.PHONE_NUMBER_ID = options.PHONE_NUMBER_ID
-    this.apiVersion = (options.apiVersion != null) ? options.apiVersion : 'v14.0'
-  }
-
-  public graphClient: GraphClient = async (method = 'POST', path = 'messages', data?) => {
-    return await new Promise((resolve, reject) => {
-      const options = {
-        hostname: 'graph.facebook.com',
-        port: 443,
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        path: `/${this.apiVersion}/${this.PHONE_NUMBER_ID}/${path}`,
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.token}`
-        }
-      }
-      const req = request(options, (res) => {
-        let body = ''
-        res.on('data', (chunk) => {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-          body += chunk
-        })
-        res.on('end', () => {
-          resolve(body)
-        })
-      })
-      req.on('error', (error) => {
-        req.end()
-        reject(error)
-      })
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (data?.data?.type === 'file' && data?.data?.file) {
-        const file = createReadStream(data.data?.file)
-        file.pipe(req)
-      } else {
-        const fdata = JSON.stringify({ messaging_product: 'whatsapp', ...data?.data })
-        req.write(fdata)
-      }
-      req.end()
-    })
+class outBound extends Media {
+  outboundValidator: typeof outboundValidator
+  constructor (options: ConstrucorOptions) {
+    super(options)
+    this.outboundValidator = outboundValidator
   }
 
   public sendText: SendText = async (data) => {
-    const validateSendTextParams = validator.ValidateSendTextParams(data)
-    if (!validateSendTextParams.Success) {
-      throw new Error(JSON.stringify(validateSendTextParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendTextParams = outboundValidator.ValidateSendTextParams(data)
+    // if (!validateSendTextParams.Success) {
+    //   throw validateSendTextParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'text', recipientType: 'individual' })
   }
 
   public sendAudio: SendAudio = async (data) => {
-    const validateSendAudioParams = validator.ValidateSendAudioParams(data)
-    if (!validateSendAudioParams.Success) {
-      throw new Error(JSON.stringify(validateSendAudioParams.Errors))
+    // const validateSendAudioParams = outboundValidator.ValidateSendAudioParams(data)
+    // if (!validateSendAudioParams.Success) {
+    //   throw validateSendAudioParams.Errors
+    // }
+    if (data?.audio?.path !== undefined) {
+      try {
+        const upload = await this.uploadFile({
+          type: 'audio',
+          data: {
+            file: data.audio.path
+          }
+        })
+        console.log('upload', upload)
+        // @ts-expect-error
+        data.id = upload.id
+        delete data.audio.path
+      } catch (error: any) {
+        console.log(error)
+        throw error
+      }
     }
-    return await this.graphClient('POST', 'messages', { data })
+    console.log('data', data)
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'audio', recipientType: 'individual' })
   }
 
   public sendImage: SendImage = async (data) => {
-    const validateSendImageParams = validator.ValidateSendImageParams(data)
-    if (!validateSendImageParams.Success) {
-      throw new Error(JSON.stringify(validateSendImageParams.Errors))
+    // const validateSendImageParams = outboundValidator.ValidateSendImageParams(data)
+    // if (!validateSendImageParams.Success) {
+    //   throw validateSendImageParams.Errors
+    // }
+    if (data?.image?.path !== undefined) {
+      try {
+        const upload = await this.uploadFile({
+          type: 'audio',
+          data: {
+            file: data.image.path
+          }
+        })
+        console.log('upload', upload)
+        // @ts-expect-error
+        data.image.id = upload.id
+        delete data.image.path
+      } catch (error: any) {
+        console.log(error)
+        throw error
+      }
     }
-    return await this.graphClient('POST', 'messages', { data })
+    const data2 = { ...data, type: 'image', recipientType: 'individual' }
+    console.log('data2', data2)
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, data2)
   }
 
   public sendVideo: SendVideo = async (data) => {
-    const validateSendVideoParams = validator.ValidateSendVideoParams(data)
-    if (!validateSendVideoParams.Success) {
-      throw new Error(JSON.stringify(validateSendVideoParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendVideoParams = outboundValidator.ValidateSendVideoParams(data)
+    // if (!validateSendVideoParams.Success) {
+    //   throw validateSendVideoParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'video', recipientType: 'individual' })
   }
 
   public sendContact: SendContact = async (data) => {
-    const validateSendContactParams = validator.ValidateSendContactParams(data)
-    if (!validateSendContactParams.Success) {
-      throw new Error(JSON.stringify(validateSendContactParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendContactParams = outboundValidator.ValidateSendContactParams(data)
+    // if (!validateSendContactParams.Success) {
+    //   throw validateSendContactParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'contact', recipientType: 'individual' })
   }
 
   public sendLocation: SendLocation = async (data) => {
-    const validateSendLocationParams = validator.ValidateSendLocationParams(data)
-    if (!validateSendLocationParams.Success) {
-      throw new Error(JSON.stringify(validateSendLocationParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendLocationParams = outboundValidator.ValidateSendLocationParams(data)
+    // if (!validateSendLocationParams.Success) {
+    //   throw validateSendLocationParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'location', recipientType: 'individual' })
   }
 
   public sendSticker: SendSticker = async (data) => {
-    const validateSendStickerParams = validator.ValidateSendStickerParams(data)
-    if (!validateSendStickerParams.Success) {
-      throw new Error(JSON.stringify(validateSendStickerParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendStickerParams = outboundValidator.ValidateSendStickerParams(data)
+    // if (!validateSendStickerParams.Success) {
+    //   throw validateSendStickerParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'sticker', recipientType: 'individual' })
   }
 
   public sendDocument: SendDocument = async (data) => {
-    const validateSendDocumentParams = validator.ValidateSendDocumentParams(data)
-    if (!validateSendDocumentParams.Success) {
-      throw new Error(JSON.stringify(validateSendDocumentParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendDocumentParams = outboundValidator.ValidateSendTextParams(data)
+    // if (!validateSendDocumentParams.Success) {
+    //   throw validateSendDocumentParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'document', recipientType: 'individual' })
   }
 
   public sendButtons: SendButtons = async (data) => {
-    const validateSendButtonsParams = validator.ValidateSendButtonsParams(data)
-    if (!validateSendButtonsParams.Success) {
-      throw new Error(JSON.stringify(validateSendButtonsParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendButtonsParams = outboundValidator.ValidateSendTextParams(data)
+    // if (!validateSendButtonsParams.Success) {
+    //   rror(validateSendButtonsParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'interactive', recipientType: 'individual' })
   }
 
   public sendList: SendList = async (data) => {
-    const validateSendListParams = validator.ValidateSendListParams(data)
-    if (!validateSendListParams.Success) {
-      throw new Error(JSON.stringify(validateSendListParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendListParams = outboundValidator.ValidateSendTextParams(data)
+    // if (!validateSendListParams.Success) {
+    //   rror(validateSendListParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'interactive', recipientType: 'individual' })
   }
 
   public sendRead: SendRead = async (data) => {
-    const validateSendReadParams = validator.ValidateSendReadParams(data)
-    if (!validateSendReadParams.Success) {
-      throw new Error(JSON.stringify(validateSendReadParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendReadParams = outboundValidator.ValidateSendAudioParams(data)
+    // if (!validateSendReadParams.Success) {
+    //   throw validateSendReadParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'text', recipientType: 'individual' })
   }
 
   // public sendOrder: SendOrder = async (data) => this.graphClient('POST', 'messages', {data})
@@ -164,19 +143,19 @@ class outBound implements OutBound {
   // public sendResumed: SendResumed = async (data) => this.graphClient('POST', 'messages', {data})
 
   public sendSingleProduct: SendSingleProduct = async (data) => {
-    const validateSendSingleProductParams = validator.ValidateSendProductParams(data)
-    if (!validateSendSingleProductParams.Success) {
-      throw new Error(JSON.stringify(validateSendSingleProductParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendSingleProductParams = outboundValidator.ValidateSendProductParams(data)
+    // if (!validateSendSingleProductParams.Success) {
+    //   throw validateSendSingleProductParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'interactive', recipientType: 'individual' })
   }
 
   public sendProductList: SendProductList = async (data) => {
-    const validateSendProductListParams = validator.ValidateSendProductListParams(data)
-    if (!validateSendProductListParams.Success) {
-      throw new Error(JSON.stringify(validateSendProductListParams.Errors))
-    }
-    return await this.graphClient('POST', 'messages', { data })
+    // const validateSendProductListParams = outboundValidator.ValidateSendProductListParams(data)
+    // if (!validateSendProductListParams.Success) {
+    //   throw validateSendProductListParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'interactive', recipientType: 'individual' })
   }
 
   public sendBulk: SendBulk = async (data) => {
@@ -185,31 +164,34 @@ class outBound implements OutBound {
       throw new Error('Recipients must be an array and not empty')
     }
 
-    const validateSendBulkParams = validator.ValidateSendBulkParams(data)
+    // const validateSendBulkParams = outboundValidator.ValidateSendAudioParams(data)
 
-    if (!validateSendBulkParams.Success) {
-      throw new Error(JSON.stringify(validateSendBulkParams.Errors))
-    }
+    // if (!validateSendBulkParams.Success) {
+    //   throw validateSendBulkParams.Errors
+    // }
     // promise all
     const promises = data.recipients.map(async (to: string) => {
       // @ts-expect-error
       const data = { data: { ...rest[type], to } }
-      return await this.graphClient('POST', 'messages', data)
+      return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'text', recipientType: 'individual' })
     })
     // allow all promises to resolve failed or not
     return await Promise.all(promises)
   }
+
   // public sendQuickReplies: SendQuickReplies = async (chatId, quickReplies, options?) => {
   //   const path = `${this.apiVersion}/${this.WABA_ID}/messages?recipient=${
   //   chatId}&message=`
   //   return this.graphClient('POST', path, quickReplies)
   // }
 
-  // public sendTemplate: SendTemplate = async (chatId, template, options?) => {
-  //   const path = `${this.apiVersion}/${this.WABA_ID}/messages?recipient=${
-  //   chatId}&message=`
-  //   return this.graphClient('POST', path, template)
-  // }
+  public sendTemplate: sendTemplate = async (data) => {
+    // const validateSendTemplateParams = outboundValidator.ValidateSendTemplateParams(data)
+    // if (!validateSendTemplateParams.Success) {
+    //   throw validateSendTemplateParams.Errors
+    // }
+    return this.graphClient.request({ method: 'POST', path: 'messages' }, { ...data, type: 'template', recipientType: 'individual' })
+  }
 
   // public getGroupInfo: GetGroupInfo = async (chatId, options?) => {
   //   const path = `${this.apiVersion}/${this.WABA_ID}/groups/${chatId}`

@@ -6,7 +6,10 @@ import { GenerateSchemaFile } from 'runtime-typescript-checker'
 export function StepInTheBuildPipeline (iSchemaFileName: string, iForce: boolean): boolean {
   const result = GenerateSchemaFile({
     SourceFilePaths: [
-      '../../typings/index.ts'
+      '../../typings/index.ts',
+      '../../typings/account.ts',
+      '../../typings/media.ts',
+      '../../typings/outbound.ts'
     ],
     SchemaFilePath: iSchemaFileName,
     Prefix: 'validate-',

@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*", "typings/**/*", "test"],
+  "include": ["src/**/*", "typings/**/*", "test", "test.js"],
   "compilerOptions": {
     "lib": [
       "es2015",
@@ -8,6 +8,7 @@
       "node_modules/@types",
       "typings/index.ts"
     ],
+    "outDir": "./dist",
     "strict": true,
   }
 }
